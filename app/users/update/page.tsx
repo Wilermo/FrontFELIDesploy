@@ -15,8 +15,8 @@ async function updateUser(data) {
             throw new Error("Documento inválido");
         }
 
-        const response = await fetch(`http://localhost:3000/usuario/${documento}`, {
-            method: "PUT",
+            const response = await fetch(`http://localhost:3000/usuario/${documento}`, {
+                method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
