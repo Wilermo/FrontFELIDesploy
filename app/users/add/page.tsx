@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import {Usuario} from "@/app/page";
 
-async function createUser(data: FormData) {
+async function createUser(data : Usuario) {
     try {
         const response = await fetch("http://localhost:3000/usuario", {
             method: "POST",

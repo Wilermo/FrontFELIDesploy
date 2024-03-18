@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from 'react';
+export interface Usuario {
+    nombre: string;
+    documento: string;
+}
 
 export default function Home() {
-    interface Usuario {
-        nombre: string;
-        documento: string;
-    }
 
     const [users, setUsers] = useState<Usuario[]>([]);
 
