@@ -11,7 +11,7 @@ async function deleteUser(data: FormData) {
             throw new Error("Documento inválido");
         }
 
-        const response = await fetch("http://localhost:3000/usuario/" + documento, {
+        const response = await fetch("sistemafeli.up.railway.app:3000/usuario/" + documento, {
             method: "DELETE"
         });
 

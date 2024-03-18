@@ -14,7 +14,7 @@ export default function Home() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch("http://localhost:3000/usuario");
+                const response = await fetch("sistemafeli.up.railway.app:3000/usuario");
                 if (!response.ok) {
                     throw new Error("Error al obtener usuarios");
                 }

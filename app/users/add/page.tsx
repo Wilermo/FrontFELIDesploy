@@ -6,7 +6,7 @@ import {Usuario} from "@/app/page";
 
 async function createUser(data : Usuario) {
     try {
-        const response = await fetch("http://localhost:3000/usuario", {
+        const response = await fetch("sistemafeli.up.railway.app:3000/usuario", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
