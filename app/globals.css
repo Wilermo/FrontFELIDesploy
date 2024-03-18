@@ -3,31 +3,262 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
+}
+/*#343838*/
+/*#005f6b*/
+/*#314c53*/
+/*#010300*/
+body {
+    background-color: #343838;
+    background-image:
+            linear-gradient(30deg, #005f6b 13.5%, transparent 13.5%, transparent 86.5%, #005f6b 86.5%),
+            linear-gradient(-30deg, #005f6b 13.5%, transparent 13.5%, transparent 86.5%, #005f6b 86.5%),
+            linear-gradient(30deg, #314c53 13.5%, transparent 13.5%, transparent 86.5%, #314c53 86.5%),
+            linear-gradient(-30deg, #314c53 13.5%, transparent 13.5%, transparent 86.5%, #314c53 86.5%),
+            linear-gradient(30deg, #005f6b 13.5%, transparent 13.5%, transparent 86.5%, #005f6b 86.5%),
+            linear-gradient(-30deg, #005f6b 13.5%, transparent 13.5%, transparent 86.5%, #005f6b 86.5%),
+            linear-gradient(30deg, #314c53 13.5%, transparent 13.5%, transparent 86.5%, #314c53 86.5%),
+            linear-gradient(-30deg, #314c53 13.5%, transparent 13.5%, transparent 86.5%, #314c53 86.5%),
+            linear-gradient(45deg, #010300 25%, transparent 25%, transparent 75%, #010300 75%),
+            linear-gradient(45deg, #010300 25%, transparent 25%, transparent 75%, #010300 75%);
+    background-position:
+            0em 2em,
+            0em 2em,
+            2em 4em,
+            2em 4em,
+            4em 2em,
+            4em 2em,
+            6em 4em,
+            6em 4em,
+            0em 0em,
+            2em 2em;
+    background-size:
+            8em 4em,
+            8em 4em,
+            8em 4em,
+            8em 4em,
+            8em 4em,
+            8em 4em,
+            8em 4em,
+            8em 4em,
+            4em 4em,
+            4em 4em;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.elements-container{
+    background-color: rgba(0,0,0,0.65);
+    margin: 1em;
+    border-radius: .25em;
+    box-sizing: border-box;
+    padding: 1em;
 }
+
+.six h1 {
+    text-align: center;
+    color: #222;
+    font-size: 30px;
+    font-weight: 400;
+    text-transform: uppercase;
+    word-spacing: 1px;
+    letter-spacing: 2px;
+    color: #00b4cc;
+}
+
+.six h1 span {
+    line-height: 2em;
+    padding-bottom: 15px;
+    text-transform: none;
+    font-size: .7em;
+    font-weight: normal;
+    font-style: italic;
+    font-family: "Playfair Display", "Bookman", serif;
+    color: #999;
+    letter-spacing: -0.005em;
+    word-spacing: 1px;
+    letter-spacing: none;
+}
+
+.six h1:after, .six h1:before {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 45px;
+    height: 4px;
+    content: "";
+    right: 45px;
+    margin: auto;
+    background-color: #ccc;
+}
+
+.six h1:before {
+    background-color: #d78b8b;
+    left: 45px;
+    width: 90px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button {
+    border-color: #005f6b;
+    background-color: #cfd5e1;
+    opacity: unset ;
+    border-width: 2px;
+    border-radius: .25rem;
+    box-sizing: border-box;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+}
+
+.button-light {
+    border-color: #005f6b;
+    background-color: #cfd5e1;
+    opacity: unset ;
+    border-width: 2px;
+    border-radius: .25rem;
+    padding: 0.2em;
+    width: 100%;
+    color: black;
+}
+.button-light:hover{
+    transform: scale(105%);
+    transition: transform 0.2s ease;
+    border-color: #00dffc;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    background-color: #343838;
+    color: white;
+}
+
+.button:hover{
+    transform: scale(110%);
+    transition: transform 0.2s ease;
+    border-color: #00dffc;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    background-color: #343838;
+    color: white;
+}
+
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
+table {
+    width: 100%;
+}
+
+input{
+    color: black;
+    width: 100%;
+}
+
+table, th, td{
+    border: 1px solid;
+    border-color: #005f6b;
+}
+
+tr{
+    color: white;
+}
+
+tr  p{
+    margin: 0.2em;
+    color: black;
+}
+
+.twelve h1 {
+    font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; margin:auto; white-space:nowrap; padding-bottom:13px;
+}
+.twelve h1:before {
+    background-color:  #00b4cc;
+    content: '';
+    display: block;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 5px;
+}
+.twelve h1:after {
+    background-color:  #00b4cc;
+    content: '';
+    display: block;
+    position:absolute; right:0; bottom:0;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 0.25em;
+}
+
+.thirteen h1 {
+    position:relative;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:0px;
+    text-transform:uppercase;
+    width:20em;
+    text-align:center;
+    margin:auto;
+    white-space:nowrap;
+    border:2px solid #00dffc;
+    color: #f7f8fc;
+    padding:5px 15px 3px 11px;
+}
+.thirteen h1:before, .thirteen h1:after {
+    background-color: #00b4cc;
+    color: #f7f8fc;
+    position:absolute;
+    content: '';
+    height: 7px;
+
+    width: 7px; border-radius:50%;
+    bottom: 12px;
+}
+.thirteen h1:before {
+    left:-20px;
+}
+.thirteen h1:after {
+    right:-20px;
+}
+
+.thirteen-error h1 {
+    position:relative;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:0px;
+    text-transform:uppercase;
+    width:20em;
+    text-align:center;
+    margin:auto;
+    white-space:nowrap;
+    border:2px solid red;
+    color: #f7f8fc;
+    padding:5px 15px 3px 11px;
+}
+.thirteen-error h1:before, .thirteen-error h1:after {
+    background-color: red;
+    color: #f7f8fc;
+    position:absolute;
+    content: '';
+    height: 7px;
+
+    width: 7px; border-radius:50%;
+    bottom: 12px;
+}
+.thirteen-error h1:before {
+    left:-20px;
+}
+.thirteen-error h1:after {
+    right:-20px;
 }
