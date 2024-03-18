@@ -4,7 +4,12 @@ import Link from "next/link";
 import React, { useEffect, useState } from 'react';
 
 export default function Home() {
-    const [users, setUsers] = useState([]);
+    interface Usuario {
+        nombre: string;
+        documento: string;
+    }
+
+    const [users, setUsers] = useState<Usuario[]>([]);
 
     useEffect(() => {
         const fetchUsers = async () => {
