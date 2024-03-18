@@ -5,7 +5,7 @@ import {redirect} from "next/navigation";
 
 async function deleteUser(data: FormData) {
     "use server"
-    const documento = data.get("Documento").valueOf()
+    const documento = data.get("Documento")?.valueOf()
 
     try{
         if (typeof documento !== "string" || documento.length === 0) {
