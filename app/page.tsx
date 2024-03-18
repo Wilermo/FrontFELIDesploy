@@ -1,20 +1,33 @@
+"use client";
+
 import Link from "next/link";
-import {prisma} from "@/app/db";
+import React, { useEffect, useState } from 'react';
 
-function getUsers() {
-    return prisma.user.findMany()
-}
+export default function Home() {
+    const [users, setUsers] = useState([]);
 
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await fetch("http://localhost:3000/usuario");
+                if (!response.ok) {
+                    throw new Error("Error al obtener usuarios");
+                }
+                const data = await response.json();
+                setUsers(data);
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        };
 
-export default async function Home() {
-    const users = await getUsers()
-    //await prisma.user.create({data: {nombre: "Pipe", documento: 123}})
+        fetchUsers();
+    }, []);
+
     return (
         <body>
         <div className={"elements-container"}>
             <div className={"six"}>
-                <h1> Sistema FELI de gestión de usuarios
-                </h1>
+                <h1> Sistema FELI de gestión de usuarios </h1>
                 <h1><span>Fácil Eficiente Leal Integrado</span></h1>
             </div>
         </div>
@@ -37,7 +50,6 @@ export default async function Home() {
                 <tr>
                     <th>Nombre</th>
                     <th>Documento</th>
-
                 </tr>
                 {users.map(user => (
                     <tr key={user.documento}>
@@ -49,5 +61,5 @@ export default async function Home() {
             </table>
         </div>
         </body>
-    )
+    );
 }

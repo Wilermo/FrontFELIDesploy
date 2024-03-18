@@ -1,64 +1,76 @@
+"use client"
+
 import Link from "next/link";
-import {isAsyncFunction} from "util/types";
-import {prisma} from "@/app/db";
-import {redirect} from "next/navigation";
+import { useState } from "react";
 
-async function updateUser(data: FormData) {
-    "use server"
-    const nombre = data.get("Nombre")?.valueOf()
-    const documento = data.get("Documento")?.valueOf()
+async function updateUser(data) {
+    const nombre = data.get("Nombre")?.valueOf();
+    const documento = data.get("Documento")?.valueOf();
 
-    try{
+    try {
         if (typeof nombre !== "string" || nombre.length === 0) {
-            throw Error("Nombre inválido")
+            throw new Error("Nombre inválido");
         }
         if (typeof documento !== "string" || documento.length === 0) {
-            throw Error("Documento inválido")
+            throw new Error("Documento inválido");
         }
 
-        await prisma.user.update({
-            where: {
-                documento: +documento,
+        const response = await fetch(`http://localhost:3000/usuario/${documento}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
             },
-            data: {
-                nombre: nombre,
-            },
-        })
-    }catch (error){
-        redirect("/error")
-    }
+            body: JSON.stringify({ nombre: nombre })
+        });
 
-    console.log(data)
-    redirect("/");
+        if (!response.ok) {
+            throw new Error("Error al actualizar usuario");
+        }
+
+        console.log("Usuario actualizado:", documento);
+        return "/";
+    } catch (error) {
+        console.error(error);
+        return "/error";
+    }
 }
 
 export default function Page() {
+    const [redirectPath, setRedirectPath] = useState("/");
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const path = await updateUser(formData);
+        window.location.href = path;
+    };
+
     return (
         <body>
         <div className={"elements-container"}>
             <div className={"six"}>
-                <h1> Sistema FELI de gestión de usuarios
+                <h1>Sistema FELI de gestión de usuarios</h1>
+                <h1>
+                    <span>Fácil Eficiente Leal Integrado</span>
                 </h1>
-                <h1><span>Fácil Eficiente Leal Integrado</span></h1>
             </div>
         </div>
         <div className={"elements-container"}>
             <div className={"thirteen"}>
-                <h1> Editar de usuarios
-                </h1>
+                <h1>Editar usuario</h1>
             </div>
         </div>
         <div className={"elements-container"}>
-            <form action={updateUser}>
+            <form onSubmit={handleSubmit}>
                 <table>
                     <tbody>
                     <tr>
                         <td>Documento del usuario a editar</td>
-                        <td><input type={"text"} name={"Documento"}/></td>
+                        <td><input type={"text"} name={"Documento"} /></td>
                     </tr>
                     <tr>
                         <td>Nombre nuevo</td>
-                        <td><input type={"text"} name={"Nombre"}/></td>
+                        <td><input type={"text"} name={"Nombre"} /></td>
                     </tr>
                     </tbody>
                 </table>
@@ -73,6 +85,7 @@ export default function Page() {
                 </div>
             </form>
         </div>
+        {redirectPath !== "/" && <meta http-equiv="refresh" content={`0;url=${redirectPath}`} />}
         </body>
-    )
+    );
 }
