@@ -5,9 +5,10 @@
   "scripts": {
     "devStart": "nodemon server.js",
     "dev": "next dev",
-    "build": "npx prisma migrate dev --name init | next build",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
