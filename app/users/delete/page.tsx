@@ -1,54 +1,64 @@
+"use client"
+
 import Link from "next/link";
-import {isAsyncFunction} from "util/types";
-import {prisma} from "@/app/db";
-import {redirect} from "next/navigation";
+import { useState } from "react";
 
-async function deleteUser(data: FormData) {
-    "use server"
-    const documento = data.get("Documento").valueOf()
+async function deleteUser(data) {
+    const documento = data.get("Documento")?.valueOf();
 
-    try{
+    try {
         if (typeof documento !== "string" || documento.length === 0) {
-            throw Error("Documento inválido")
+            throw new Error("Documento inválido");
         }
-        await prisma.user.delete({
-            where: {
-                documento: +documento,
-            },
-        })
-        console.log(documento)
-    }catch (error){
-        console.log(error)
-        redirect("/error")
-    }
 
-    console.log(data)
-    redirect("/");
+        const response = await fetch("http://localhost:3000/usuario/" + documento, {
+            method: "DELETE"
+        });
+
+        if (!response.ok) {
+            throw new Error("Error al eliminar usuario");
+        }
+
+        console.log("Usuario eliminado:", documento);
+        return "/";
+    } catch (error) {
+        console.error(error);
+        return "/error";
+    }
 }
 
 export default function Page() {
+    const [redirectPath, setRedirectPath] = useState("/");
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const path = await deleteUser(formData);
+        window.location.href = path;
+    };
+
     return (
         <body>
         <div className={"elements-container"}>
             <div className={"six"}>
-                <h1> Sistema FELI de gestión de usuarios
+                <h1>Sistema FELI de gestión de usuarios</h1>
+                <h1>
+                    <span>Fácil Eficiente Leal Integrado</span>
                 </h1>
-                <h1><span>Fácil Eficiente Leal Integrado</span></h1>
             </div>
         </div>
         <div className={"elements-container"}>
             <div className={"thirteen"}>
-                <h1> Eliminar usuario
-                </h1>
+                <h1>Eliminar usuario</h1>
             </div>
         </div>
         <div className={"elements-container"}>
-            <form action={deleteUser}>
+            <form onSubmit={handleSubmit}>
                 <table>
                     <tbody>
                     <tr>
                         <td>Documento del usuario a eliminar</td>
-                        <td><input type={"text"} name={"Documento"}/></td>
+                        <td><input type={"text"} name={"Documento"} /></td>
                     </tr>
                     </tbody>
                 </table>
@@ -63,6 +73,7 @@ export default function Page() {
                 </div>
             </form>
         </div>
+        {redirectPath !== "/" && <meta http-equiv="refresh" content={`0;url=${redirectPath}`} />}
         </body>
-    )
+    );
 }
