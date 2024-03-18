@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-async function updateUser(data) {
+async function updateUser(data: FormData) {
     const nombre = data.get("Nombre")?.valueOf();
     const documento = data.get("Documento")?.valueOf();
 
@@ -38,9 +38,9 @@ async function updateUser(data) {
 export default function Page() {
     const [redirectPath, setRedirectPath] = useState("/");
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const formData = new FormData(event.target);
+        const formData = new FormData(event.currentTarget);
         const path = await updateUser(formData);
         window.location.href = path;
     };

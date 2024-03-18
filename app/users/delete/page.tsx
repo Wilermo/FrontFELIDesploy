@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-async function deleteUser(data) {
+async function deleteUser(data: FormData) {
     const documento = data.get("Documento")?.valueOf();
 
     try {
@@ -30,9 +30,9 @@ async function deleteUser(data) {
 export default function Page() {
     const [redirectPath, setRedirectPath] = useState("/");
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const formData = new FormData(event.target);
+        const formData = new FormData(event.currentTarget);
         const path = await deleteUser(formData);
         window.location.href = path;
     };

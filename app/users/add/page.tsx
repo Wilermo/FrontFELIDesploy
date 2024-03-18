@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-async function createUser(data) {
+async function createUser(data: FormData) {
     try {
         const response = await fetch("http://localhost:3000/usuario", {
             method: "POST",
@@ -28,7 +28,7 @@ export default function AddUser() {
         documento: ""
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
             ...prevState,
@@ -36,7 +36,7 @@ export default function AddUser() {
         }));
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const redirectPath = await createUser(formData);
         // Redirigir a la página de inicio o a la página de error según sea necesario
